@@ -17,7 +17,7 @@ export default class CounterFactory {
         counterSettings.id = uuidv4();
         counterSettings.name = "New counter";
         counterSettings.text = this.getRandomInitialText();
-        counterSettings.font = "#FFFFFFFF";
+        counterSettings.fontColor = "#FFFFFFFF";
         counterSettings.background = "#000000AA";
 
         return counterSettings;

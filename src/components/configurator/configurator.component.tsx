@@ -21,7 +21,7 @@ import ConfiguratorInput from '../../models/configurator-input';
 import { BrowserWindow } from 'electron';
 import ColorPickerButton from '../color-picker-button/color-picker-button';
 
-// TODO break this component down.
+// TODO break this component down. it's pitifully bad OMEGALUL
 export default function Configurator({ configuration, onSave, onDelete }: ConfiguratorInput) {
     const [expanded, setExpanded] = React.useState(false);
     const [previewConfig, setPreviewConfig] = React.useState(configuration);
@@ -72,47 +72,58 @@ export default function Configurator({ configuration, onSave, onDelete }: Config
     }
 
     return (
-        <Accordion
-            sx={{ marginBottom: "16px" }}
-            expanded={expanded}
-            onChange={onAccordionChange}>
-            <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-            >
-                <Typography>{configuration.name}</Typography>
-                <LaunchIcon onClick={handleLaunchClick} />
-            </AccordionSummary>
-            <AccordionDetails>
-                <Typography>Configuration:</Typography>
-                <Box
-                    sx={{
-                        '& .MuiTextField-root': { m: 1, width: '25ch' },
-                    }}>
-                    <TextField id="name" name="name" label="Name" value={previewConfig.name} onChange={handleChange} />
-                    <TextField id="text" name="text" label="Text" value={previewConfig.text} onChange={handleChange} />
-                    <ColorPickerButton text="Font Color" color={previewConfig.color} onColorChange={(color) => handleColorChange("color", color)} />
-                    <ColorPickerButton text="Background Color" color={previewConfig.background} onColorChange={(color) => handleColorChange("background", color)} />
-                    <Button variant="contained" onClick={handleSaveClick}>Save</Button>
-                    <Button
+        <div className={styles.container}>
+            <Button
+                sx={{
+                    alignSelf: "center",
+                    marginRight: "4px",
+                }}>
+                <LaunchIcon
+                    onClick={handleLaunchClick} />
+            </Button>
+            <Accordion
+                sx={{
+                    flexGrow: "1",
+                }}
+                expanded={expanded}
+                onChange={onAccordionChange}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <Typography>{configuration.name}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>Configuration:</Typography>
+                    <Box
                         sx={{
-                            marginLeft: "8px"
-                        }}
-                        variant="outlined"
-                        startIcon={<DeleteIcon/>}
-                        onClick={handleDeleteClick}>
+                            '& .MuiTextField-root': { m: 1, width: '25ch' },
+                        }}>
+                        <TextField id="name" name="name" label="Name" value={previewConfig.name} onChange={handleChange} />
+                        <TextField id="text" name="text" label="Text" value={previewConfig.text} onChange={handleChange} />
+                        <ColorPickerButton text="Font Color" color={previewConfig.fontColor} onColorChange={(color) => handleColorChange("fontColor", color)} />
+                        <ColorPickerButton text="Background Color" color={previewConfig.background} onColorChange={(color) => handleColorChange("background", color)} />
+                        <Button variant="contained" onClick={handleSaveClick}>Save</Button>
+                        <Button
+                            sx={{
+                                marginLeft: "8px"
+                            }}
+                            variant="outlined"
+                            startIcon={<DeleteIcon />}
+                            onClick={handleDeleteClick}>
                             Delete
-                    </Button>
-                </Box>
-                <Typography variant='h5'>
-                    Preview:
-                </Typography>
-                <div className={styles.preview}>
-                    <Counter configuration={previewConfig} counter={0} />
-                </div>
-            </AccordionDetails>
-        </Accordion>
+                        </Button>
+                    </Box>
+                    <Typography variant='h5'>
+                        Preview:
+                    </Typography>
+                    <div className={styles.preview}>
+                        <Counter configuration={previewConfig} counter={0} />
+                    </div>
+                </AccordionDetails>
+            </Accordion>
+        </div>
     );
 }
 

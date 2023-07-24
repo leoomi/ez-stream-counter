@@ -10,7 +10,7 @@ export default function Counter({configuration, counter}: {configuration: Counte
         <div>
             <Typography variant="h1"
                 sx = {{
-                    color: configuration.color,
+                    color: configuration.fontColor,
                     backgroundColor: configuration.background,
                 }}
                 >{buildName()}</Typography>
