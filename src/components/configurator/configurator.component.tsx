@@ -20,6 +20,7 @@ import Counter from '../counter/counter.component';
 import ConfiguratorInput from '../../models/configurator-input';
 import { BrowserWindow } from 'electron';
 import ColorPickerButton from '../color-picker-button/color-picker-button';
+import ShortcutListener from '../shortcut-listener/shortcut-listener';
 
 // TODO break this component down. it's pitifully bad OMEGALUL
 export default function Configurator({ configuration, onSave, onDelete }: ConfiguratorInput) {
@@ -45,6 +46,7 @@ export default function Configurator({ configuration, onSave, onDelete }: Config
     };
 
     const handleLaunchClick = () => {
+        // TODO this will break in prod mode
         window.open(`http://localhost:3000/counter/${configuration.id}`, '_blank', 'frame=false,transparent=true');
     };
 
@@ -102,6 +104,7 @@ export default function Configurator({ configuration, onSave, onDelete }: Config
                         }}>
                         <TextField id="name" name="name" label="Name" value={previewConfig.name} onChange={handleChange} />
                         <TextField id="text" name="text" label="Text" value={previewConfig.text} onChange={handleChange} />
+                        <ShortcutListener/>
                         <ColorPickerButton text="Font Color" color={previewConfig.fontColor} onColorChange={(color) => handleColorChange("fontColor", color)} />
                         <ColorPickerButton text="Background Color" color={previewConfig.background} onColorChange={(color) => handleColorChange("background", color)} />
                         <Button variant="contained" onClick={handleSaveClick}>Save</Button>

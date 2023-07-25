@@ -49,6 +49,7 @@ export default function ConfigurationPage() {
         setCounters(previousCounters => 
             previousCounters!.filter(c => c.id !== configuration.id)
         );
+        localStorage.removeItem(configuration.id);
     };
 
     React.useEffect(() => {
