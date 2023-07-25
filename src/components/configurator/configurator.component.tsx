@@ -1,5 +1,4 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -10,15 +9,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import LaunchIcon from '@mui/icons-material/Launch';
-import Stack from '@mui/material/Stack';
-import Item from '@mui/system'
 import { ColorResult, SketchPicker } from 'react-color';
 import { RGBAToHex } from '../../services/color';
 import CounterConfiguration from '../../models/counter-configuration';
 import styles from './configurator.module.css'
 import Counter from '../counter/counter.component';
 import ConfiguratorInput from '../../models/configurator-input';
-import { BrowserWindow } from 'electron';
 import ColorPickerButton from '../color-picker-button/color-picker-button';
 import ShortcutListener from '../shortcut-listener/shortcut-listener';
 
@@ -70,7 +66,16 @@ export default function Configurator({ configuration, onSave, onDelete }: Config
                 [property]: RGBAToHex(value.rgb),
             }
         });
-    }
+    };
+
+    const handleKeybindChange = (property: string, value: string) => {
+        setPreviewConfig((previousState) => {
+            return {
+                ...previousState,
+                [property]: value,
+            }
+        });
+    };
 
     return (
         <div className={styles.container}>
@@ -103,7 +108,7 @@ export default function Configurator({ configuration, onSave, onDelete }: Config
                         }}>
                         <TextField id="name" name="name" label="Name" value={previewConfig.name} onChange={handleChange} />
                         <TextField id="text" name="text" label="Text" value={previewConfig.text} onChange={handleChange} />
-                        <ShortcutListener/>
+                        <ShortcutListener onChange={(keybind) => handleKeybindChange("incrementKeybind", keybind)} />
                         <ColorPickerButton text="Font Color" color={previewConfig.fontColor} onColorChange={(color) => handleColorChange("fontColor", color)} />
                         <ColorPickerButton text="Background Color" color={previewConfig.background} onColorChange={(color) => handleColorChange("background", color)} />
                         <Button variant="contained" onClick={handleSaveClick}>Save</Button>
