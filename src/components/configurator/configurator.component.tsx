@@ -61,8 +61,7 @@ export default function Configurator({ configuration, onSave, onDelete }: Config
 
     const handleDeleteClick = () => {
         onDelete(previewConfig);
-        setExpanded(false);
-    }
+    };
 
     const handleColorChange = (property: string, value: ColorResult) => {
         setPreviewConfig((previousState) => {

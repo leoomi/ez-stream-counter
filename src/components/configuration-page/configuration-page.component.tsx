@@ -82,9 +82,9 @@ export default function ConfigurationPage() {
                 </Toolbar>
             </AppBar>
             <Stack sx={{ marginTop: "2vh", marginX: "3vw" }}>
-                {counters && counters.map((c, idx) =>
+                {counters && counters.map((c) =>
                     <CounterConfigurator
-                        key={idx}
+                        key={c.id}
                         configuration={c}
                         onSave={onSaveConfiguration} 
                         onDelete={onDeleteConfiguration}
